@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": false,
+        "es2022": true,
+        "jest": true
+    },
+    "extends": [
+        "airbnb-base",
+        "plugin:jsdoc/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "globals": {
+        "process": true,
+        "describe": true,
+        "test": true,
+        "expect": true,
+        "beforeAll": true,
+        "afterAll": true,
+        "it": true
+    },
+    "rules": {
+        "import/extensions": "off",
+        "jsdoc/no-defaults": "off"
+    }
+}
