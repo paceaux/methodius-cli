@@ -39,7 +39,7 @@
     "node": ">=18.16.0",
     "npm": ">=9.5.0"
   },
-  "license": "MIT",
+  "license": "Hippocratic-2.1",
   "dependencies": {
     "boxen": "^7.1.1",
     "chalk": "^5.3.0",
