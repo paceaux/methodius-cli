@@ -1,4 +1,4 @@
-import { promises } from 'fs';
+import { promises, constants } from 'fs';
 import process from 'process';
 import path from 'path';
 
@@ -6,13 +6,25 @@ import { LOG_FILE_NAME, DEFAULT_OUTPUT_FILE } from './constants.js';
 import { jsonifyData } from './utils.js';
 import Log from './logger.js';
 
-const fs = promises;
-
 export default class Outputter {
   constructor(defaultOutputFile = DEFAULT_OUTPUT_FILE, logger = new Log(LOG_FILE_NAME)) {
     this.defaultOutputFile = defaultOutputFile;
     this.log = logger;
   }
+
+  /**
+   * @description checks if a directory exists
+   * @param  {string} directoryName name of the directory to check
+   * @returns {boolean} whether the directory exists
+   */
+  static directoryExists(directoryName) {
+    // don't care that lint doesn't like. it's convenient here
+    // eslint-disable-next-line no-bitwise
+    return promises.access(directoryName, constants.F_OK | constants.W_OK)
+      .then(() => true)
+      .catch(() => false);
+  }
+
   /**
    * Outputs the results to a file
    * @param  {Map} resultsMap
@@ -24,10 +36,15 @@ export default class Outputter {
       throw new Error('No data or filename provided');
     }
 
-    const fullFileAndPath = path.resolve(process.cwd(), fileName);
+    const dirName = path.dirname(fileName);
+    const directoryExists = await Outputter.directoryExists(dirName);
+    const fullFileAndPath = path.resolve(dirName, fileName);
 
     try {
-      await fs.writeFile(fullFileAndPath, data, {
+      if (dirName && !directoryExists) {
+        await promises.mkdir(dirName, { recursive: true });
+      }
+      await promises.writeFile(fullFileAndPath, data, {
         encoding: 'utf-8',
       });
     } catch (fileWriteError) {
