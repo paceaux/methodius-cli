@@ -55,7 +55,8 @@ export default class Log {
   }
 
   /**
-   * @param  {string | Array | object | Map | Set} message
+   * @description makes sure that whatever the value is, it can display in console
+   * @param  {string | Array | object | Map | Set} message - the message to log
    * @returns {string} a stringified version of the message
    */
   static getLoggableMessage(message) {
