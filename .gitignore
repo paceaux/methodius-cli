@@ -116,6 +116,7 @@ esm
 samples
 
 # Methodius outputs
+analysis
 *analysis*.json
 *.merged.*
 *no*.json

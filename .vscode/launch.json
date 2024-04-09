@@ -38,20 +38,33 @@
                 "-t",
                 "topTrigrams",
 
-
+                "-o",
+                "analysis/en/"
               ]
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "single-file",
+            "name": "All-English",
             "skipFiles": [
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/cli.js",
             "args": [
                 "-f",
+                "samples/en/alice.txt",
+                "-f",
+                "samples/en/great-gatsby.txt",
+                "-f",
+                "samples/en/huck-fin.txt",
+                "-f",
+                "samples/en/paradise-lost.txt",
+                "-f",
+                "samples/en/udhr.txt",
+                "-f",
                 "samples/en/wizard-of-oz.txt",
+
+
                 "-l",
                 "20",
 
@@ -74,7 +87,43 @@
                 "topTrigrams",
 
                 "-o",
-                "analysis/test.wizard-of-oz.analysis.json"
+                "analysis/en/"
+              ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "single-file",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/cli.js",
+            "args": [
+                "-f",
+                "samples/en/udhr.txt",
+                "-l",
+                "20",
+
+                "-p",
+                "bigramFrequencies",
+                "-p",
+                "trigramFrequencies",
+                "-p",
+                "bigramPositions",
+                "-p",
+                "trigramPositions",
+                "-p",
+                "medianWordSize",
+                "-p",
+                "meanWordSize",
+
+                "-t",
+                "topBigrams",
+                "-t",
+                "topTrigrams",
+
+                "-o",
+                "analysis/wizard-of-oz.analysis.json"
               ]
         },
         {

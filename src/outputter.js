@@ -61,8 +61,9 @@ export default class Outputter {
     let outputFileName = this.defaultOutputFile;
 
     if (fileName !== this.defaultOutputFile) {
-      const hasFileExtension = path.extname(fileName);
-      outputFileName = hasFileExtension ? fileName : `${fileName}.json`;
+      const hasFileExtension = fileName.search(/\.(json|txt)$/g) !== -1;
+      const fileExtension = typeof data === 'string' ? 'txt' : 'json';
+      outputFileName = hasFileExtension ? fileName : `${fileName}.${fileExtension}`;
     }
 
     const fullFileAndPath = path.resolve(process.cwd(), outputFileName);
