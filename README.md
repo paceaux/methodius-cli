@@ -52,10 +52,16 @@ Do the same on multiple files
 methodius -f "great-expectations.txt" "a-tale-of-two-cities.txt" -p "uniqueWords" -p "uniqueBigrams" -p letterFrequencies
 ```
 
+Output multiple files to a directory
+
+```shell
+methodius -f "great-expectations.txt" "a-tale-of-two-cities.txt" -p "uniqueWords" -p "uniqueBigrams" -p letterFrequencies -o "dickens/"
+```
+
 Set your own output file
 
 ```shell
-methodius -f "great-expectations.txt" "a-tale-of-two-cities.txt" -p "uniqueWords" -o uniqueWords 
+methodius -f "great-expectations.txt" "a-tale-of-two-cities.txt" -p "uniqueWords" -o uniqueWords.json 
 ```
 
 
@@ -67,7 +73,7 @@ methodius -f "great-expectations.txt" "a-tale-of-two-cities.txt" -p "uniqueWords
 | `--topLimit` |`-l`  | for any methods, this sets the number of top-ngrams to get. Optional. | `15` |
 | `--properties` | `-p`  |  which properties to return. Optional. Get the list off of the [repo](https://github.com/paceaux/methodius) | `'bigramFrequencies','trigramFrequencies','letterFrequencies','meanWordSize',  'medianWordSize','wordFrequencies','bigramPositions','trigramPositions',  'uniqueWords'` |
 | `--topMethods` | `-s`  |  which "top" methods to use. optional. |  `'topBigrams', 'topTrigrams','topWords',`|
-| `--outputFileName` | `-o`  | name of the output file. Optional. | `analysis.json` or `<inputfilename>.analysis.json` if multiple files  |
+| `--outputFileName` | `-o`  | name of the output file. Optional. | `analysis.json` or `<inputfilename>.analysis.json` if multiple files. This could also be a directory: `analysis/en/`  |
 | `--mergeResults`| `-m`  | Merges the results files. output will be `.merged.json` . Optional. | `false`|
 
 #### Merging results
