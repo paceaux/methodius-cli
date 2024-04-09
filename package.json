@@ -1,6 +1,6 @@
 {
   "name": "methodius-cli",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Run Methodius from the command line. Analyze text for ngrams and frequencies with ease.",
   "type": "module",
   "keywords": [

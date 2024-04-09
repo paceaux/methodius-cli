@@ -150,7 +150,7 @@ export async function analyzeTextFile(file, config) {
       const inputFileName = path.parse(file).name;
       outputFile = isDefaultOutputFile
         ? `${inputFileName}.${outputFile}`
-        : `${outputFile}.${inputFileName}`;
+        : `${outputFile}${outputFile.endsWith('/') ? '' : '.'}${inputFileName}`;
     }
     await outputter.writeDataAsync(analysis, outputFile);
 

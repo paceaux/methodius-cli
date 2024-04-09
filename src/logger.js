@@ -15,8 +15,8 @@ export default class Log {
 
   /**
    * @description Logs an error to a log file
-   * @param  {Error} error an error
-   * @returns {Log} the instance of Log
+   * @param  {Error} error the error to log
+   * @returns {this} the log instance
    */
   async errorToFileAsync(error) {
     const rawMessage = error
@@ -37,14 +37,15 @@ export default class Log {
   /**
    * @description logs text to a file
    * @param  {string} info - the text to log
-   * @returns {this} the instance of Log
+   * @returns {this} the log instance
    */
   async infoToFileAsync(info) {
     const rawMessage = info || this.rawMessage;
 
     this.rawMessage = rawMessage;
+    const safeMessage = Log.getLoggableMessage(rawMessage);
     try {
-      await fs.appendFile(this.logFile, Log.styleInfo(rawMessage, true));
+      await fs.appendFile(this.logFile, Log.styleInfo(safeMessage, true));
     } catch (errorLoggingError) {
       console.log('That sucks. Couldn\'t write the error');
       console.error(errorLoggingError);
@@ -54,9 +55,38 @@ export default class Log {
   }
 
   /**
+   * @description makes sure that whatever the value is, it can display in console
+   * @param  {string | Array | object | Map | Set} message - the message to log
+   * @returns {string} a stringified version of the message
+   */
+  static getLoggableMessage(message) {
+    let safeMessage = message;
+    const isObject = message && message instanceof Object;
+    const isMap = message instanceof Map;
+    const isArray = Array.isArray(message);
+    const isSet = message instanceof Set;
+    const isArrayLike = isArray || isSet;
+    const isObjectLike = !isArrayLike && (isObject || isMap);
+    if (isObjectLike) {
+      const mapishMessage = isMap
+        ? Object.fromEntries(message)
+        : message;
+      safeMessage = JSON.stringify(mapishMessage, null, 2);
+    }
+
+    if (isArrayLike) {
+      safeMessage = [...message]
+        .map((item) => Log.getLoggableMessage(item))
+        .join();
+    }
+
+    return safeMessage;
+  }
+
+  /**
    * @description outputs a message using internal "styles"
    * @param  {string} info - the info to style
-   * @param  {boolean} [showTimestamp] whether to show a timestamp
+   * @param  {boolean} [showTimestamp=false] - whether to show a timestamp
    * @returns {string} a styled message
    */
   static styleInfo(info, showTimestamp = false) {
@@ -70,7 +100,7 @@ ${info}
   /**
    * @description adds a colorful padded box around a message
    * @param  {string} info - the info to style
-   * @param  {boolean} [showTimestamp] whether to show a timestamp in the title
+   * @param  {boolean} [showTimestamp=false ] - whether to show a timestamp
    * @returns {boxen} a styled message
    */
   static boxInfo(info, showTimestamp = false) {
@@ -86,11 +116,14 @@ ${info}
    * @description logs a message to the console that is styled
    * @param  {string} info - the info to style
    * @param  {boolean} isImportant - whether to give the message a background
-   * @returns {this} the instance of Log
+   * @param  {boolean} [showTimeStamp=false] - whether to give the message a background
+   * @returns {this} the log instance
    */
-  toConsole(info, isImportant) {
+  toConsole(info, isImportant = false, showTimeStamp = false) {
     const rawMessage = info || this.rawMessage;
-    const infoMessage = Log.boxInfo(rawMessage);
+    const safeMessage = Log.getLoggableMessage(rawMessage);
+
+    const infoMessage = Log.boxInfo(safeMessage, showTimeStamp);
 
     this.rawMessage = rawMessage;
     if (isImportant) {
@@ -104,7 +137,7 @@ ${info}
 
   /**
    * @description starts a timer on the log object (you only get one)
-   * @returns {this} the instance of Log
+   * @returns {this} the log instance
    */
   startTimer() {
     this.timerStart = Date.now();
@@ -116,7 +149,7 @@ ${info}
 
   /**
    * @description ends a timer on the log object
-   * @returns {this} the instance of Log
+   * @returns {this} the log instance
    */
   endTimer() {
     this.timerEnd = Date.now();

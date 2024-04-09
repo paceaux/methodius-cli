@@ -105,9 +105,20 @@ web_modules/
 .yarn/install-state.gz
 .pnp.*
 
-
+# build things
 dist
 esm
+
+# Mac things
 .DS_Store
-*.analysis.*
+
+#Methodius Inputs
+samples
+
+# Methodius outputs
+analysis
+*analysis*.json
 *.merged.*
+*no*.json
+*all*.json
+

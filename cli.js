@@ -52,7 +52,7 @@ const { argv } = yargs(hideBin(process.argv))
   })
   .option('outputFileName', {
     alias: 'o',
-    description: 'name of output file',
+    description: 'name of output file. If analyzing multiple files, you can make this a directory with a trailing /',
     type: 'string',
     default: DEFAULT_OUTPUT_FILE,
   })
