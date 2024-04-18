@@ -43,7 +43,7 @@
   "dependencies": {
     "boxen": "^7.1.1",
     "chalk": "^5.3.0",
-    "methodius": "^2.0.0",
+    "methodius": "^2.0.1",
     "mkdirp": "^3.0.1",
     "rimraf": "^5.0.5",
     "yargs": "^17.7.2"
@@ -53,7 +53,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-formatter-table": "^7.32.1",
     "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jsdoc": "^48.2.2",
+    "eslint-plugin-jsdoc": "^48.2.3",
     "jest": "^29.7.0",
     "jest-environment-node": "^29.7.0"
   }
