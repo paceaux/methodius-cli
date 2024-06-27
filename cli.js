@@ -131,10 +131,13 @@ async function main(config) {
     .infoToFileAsync();
 
   if (config.mergeResults) {
+    let mergeOutputFileName = `${config.outputFileName.replace('json', '')}.${DEFAULT_MERGE_OUTPUT_FILE}`;
+    mergeOutputFileName = mergeOutputFileName.replace('..', '.');
+
     const mergeConfig = {
       files: resultsFiles,
       properties: [...config.properties, ...config.topMethods],
-      outputFileName: `${config.outputFileName.replace('json', '')}.${DEFAULT_MERGE_OUTPUT_FILE}`,
+      outputFileName: mergeOutputFileName,
     };
     await merge(mergeConfig);
   }
