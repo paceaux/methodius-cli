@@ -136,7 +136,7 @@ export async function merge(config) {
 
     await outputter.writeDataAsync(propertyObject, config.outputFileName);
 
-    const outputFile = `${config.outputFileName}${config.outputFileName !== 'merged.json' ? '.merged.json' : ''}`;
+    const outputFile = `${config.outputFileName}`;
     const endMessage = `
 📓 Methodius Result Merger Finished
 

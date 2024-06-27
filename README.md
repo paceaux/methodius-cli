@@ -49,19 +49,19 @@ methodius -f "great-expectations.txt" -p "uniqueWords" -p "uniqueBigrams" -p let
 Do the same on multiple files
 
 ```shell
-methodius -f "great-expectations.txt" "a-tale-of-two-cities.txt" -p "uniqueWords" -p "uniqueBigrams" -p letterFrequencies
+methodius -f "great-expectations.txt" -f "a-tale-of-two-cities.txt" -p "uniqueWords" -p "uniqueBigrams" -p letterFrequencies
 ```
 
 Output multiple files to a directory
 
 ```shell
-methodius -f "great-expectations.txt" "a-tale-of-two-cities.txt" -p "uniqueWords" -p "uniqueBigrams" -p letterFrequencies -o "dickens/"
+methodius -f "great-expectations.txt" -f "a-tale-of-two-cities.txt" -p "uniqueWords" -p "uniqueBigrams" -p letterFrequencies -o "dickens/"
 ```
 
 Set your own output file
 
 ```shell
-methodius -f "great-expectations.txt" "a-tale-of-two-cities.txt" -p "uniqueWords" -o uniqueWords.json 
+methodius -f "great-expectations.txt" -f "a-tale-of-two-cities.txt" -p "uniqueWords" -o uniqueWords.json 
 ```
 
 
@@ -91,4 +91,10 @@ If you want to merge results after the fact, you can use the `methodius-merge` c
 ```shell
 
 methodius-merge -f "alice.analysis.json" "huck-fin.analysis.json" -o "merged.json"
+```
+
+You can also designate which properties from the analysis files you want to merge:
+
+```shell
+methodius-merge -f "alice.analysis.json" "huck-fin.analysis.json" -o "merged.json" -p uniqueWords
 ```
